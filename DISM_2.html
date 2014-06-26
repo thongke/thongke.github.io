@@ -1,0 +1,416 @@
+<h1 id="point--referenced-data"><span class="header-section-number">1</span> Point- Referenced Data</h1><h2 id="basics"><span class="header-section-number">1.1</span> Basics</h2><p>Basic tool is a spatial process, <span class="math">\(\{Y(\mathbf{s}), \mathbf{s} \in D\}\)</span>, where <span class="math">\(D \subset Rcal^r\)</span>. Note that time series follows this approach with <span class="math">\(r = 1\)</span>; we will usually have <span class="math">\(r\)</span> = 2 or 3. We begin with essenials of point-level data modeling, including stationarity, isotropy, and variograms - key ellements of the ‘Matheron school’. Then we add the spatial (typically Gaussian) process modeling that enables likelihood (and Bayesian) inference in these settings.</p><h3 id="scallops-data"><span class="header-section-number">1.1.1</span> Scallops Data</h3><div class="figure"><img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_007.png" /></div><div class="figure"><img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_008.png" /></div><div class="figure"><img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_009.png" /></div><div class="figure"><img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_010.png" /></div><h3 id="bivariate-interpolation-methods-eda"><span class="header-section-number">1.1.2</span> Bivariate Interpolation Methods (EDA)</h3><ul><li>Bivariate linear interpolation</li><li>Bivariate spline interpolation</li><li>Generalized additive models</li><li>…</li></ul><pre><code>3.1.R code</code></pre><h3 id="three-standard-statistic"><span class="header-section-number">1.1.3</span> Three standard statistic</h3><p>Three ways of providing a description of how the data are related (correlated) with distance (and direction):</p><ul><li><strong>Covariogram</strong>: Describes the way in which the <strong>deviations of observations from their mean</strong> value <strong>at different</strong> locations on the map <strong>co-vary</strong>. The covariance of a spatial stochastic process at any two locations (sites) <span class="math">\(s\)</span> and <span class="math">\(s + h\)</span> is defined as <span class="math">\[COV [X(s), X(s + h)] = [X(s) − \overline{X(s)}] · [X(s) − \overline{X(s + h)}]\]</span></li><li>Correlogram: <span class="math">\[COR[X(s), X(s + h)] = \dfrac{COV [X(s), X(s + h)]}{SD[X(s)]·SD[X(s+h)]}\]</span> where SD refers the standard devuations.</li><li>Variogram (Semi-variogram): The variance is defined as a <strong>half the expected squared difference</strong> between paired data values <span class="math">\[VAR[X(s + h) − X(s)] = 2 · \gamma(h)\]</span> The <span class="math">\(\gamma(d)\)</span> function is known as variogram (or semi-variogram)</li></ul><h3 id="stationarity"><span class="header-section-number">1.1.4</span> Stationarity</h3><p>Suppose our spatial process has a mean <span class="math">\(μ(\mathbf{s}) = E(Y (\mathbf{s}))\)</span> and that the variance of <span class="math">\(Y(\mathbf{s})\)</span> exists for adamll <span class="math">\(\mathbf{s} ∈ D\)</span>.</p><ul><li>The process is said to be <strong>strictly stationary</strong> (also called <strong>strong</strong> stationary) if, for any given <span class="math">\(n ≤ 1\)</span>, any set of <span class="math">\(n\)</span> sites <span class="math">\(\{\mathbf{s}_1 , . . . , \mathbf{s}_n \}\)</span> and any <span class="math">\(h ∈ IR r\)</span> , the distribution of <span class="math">\(\{Y (\mathbf{s}_1 ), . . . , Y (\mathbf{s}_n )\}\)</span> is the same as that of <span class="math">\(\{Y (\mathbf{s}_1 + \mathbf{h}), . . . , Y (\mathbf{s}_n + \mathbf{h})\}\)</span>. Thus, a process is strictly stationary if the <strong>joint distribution</strong> of the process <strong>only depends on the relative locations</strong>, not on the actual locations themselves.</li><li>A less restrictive condition is given by <strong>weak stationarity</strong> (also called <strong>second-order stationarity</strong>). A process is weakly stationary if <span class="math">\(μ(s) \equiv μ\)</span> and <span class="math">\[Cov(Y(\mathbf{s}), Y(\mathbf{s} + \mathbf{h})) = C(\mathbf{h})\]</span> for all <span class="math">\(\mathbf{h} ∈ IR r\)</span> such that <span class="math">\(s\)</span> and <span class="math">\(s + h\)</span> both lie within <span class="math">\(D\)</span>. Thus, a process is weakly stationary if the <strong>expected value</strong> of the process <strong>is constant</strong> and the <strong>covariance</strong> of the process at any two sites <strong>depends only on the relative locations</strong> of the two sites, not on the actual locations themselves. Weak stationarity implies that the covariance relationship between the values of the process at any two locations can be summarized by a covariance function <span class="math">\(C(\mathbf{h})\)</span> (sometimes called a <strong>covariogram</strong>), and this function depends only on the separation vector <span class="math">\(\mathbf{h}\)</span>. Note that with all variances assumed to exist, <strong>strong stationarity implies weak stationarity. The converse is not true in general, but it holds for Gaussian processes</strong>.</li></ul><h3 id="variograms"><span class="header-section-number">1.1.5</span> Variograms</h3><p>Suppose we assume <span class="math">\(E[Y (\mathbf{s} + \mathbf{h}) − Y (\mathbf{s})] = 0\)</span> and define <span class="math">\[E[Y (\mathbf{s} + \mathbf{h}) − Y (\mathbf{s})]^2 = Var[Y (\mathbf{s} + \mathbf{h}) − Y (\mathbf{s})] = 2\gamma(\mathbf{h})\]</span> This expression makes sense when the <strong>left-hand side depends only on</strong> <span class="math">\(\mathbf{h}\)</span>, and <strong>not the particular choice of</strong> <span class="math">\(\mathbf{s}h\)</span>. If this is the case, we say the process is <strong>intrinsically stationary</strong>. The function <span class="math">\(2\gamma(\mathbf{h})\)</span> is then called the variogram, and <span class="math">\(\gamma(\mathbf{h})\)</span> is called the semivariogram.</p><p>Note that intrinsic stationarity <strong>requires only the first and second moments</strong> of the differences <span class="math">\(Y(\mathbf{s} + \mathbf{h}) - Y(\mathbf{s})\)</span>. <strong>It says noting about the joint distribution</strong> of a collection of variables <span class="math">\(Y (\mathbf{s}_1 ), . . . , Y (\mathbf{s}_n )\)</span>, and <strong>thus provides no likelihood</strong>.</p><h3 id="relationship-between-ch-and-gammah"><span class="header-section-number">1.1.6</span> Relationship between <span class="math">\(C(h)\)</span> and <span class="math">\(\gamma(h)\)</span></h3><p><span class="math">\(2\gamma(\mathbf{h}) = Var[Y (\mathbf{s} + \mathbf{h}) − Y (\mathbf{s})]\)</span></p><p><span class="math">\(= Var[Y (\mathbf{s} + \mathbf{h})] + Var[Y (\mathbf{s})] − 2Cov[Y (\mathbf{s} + \mathbf{h}), Y (\mathbf{s})]\)</span></p><p><span class="math">\(= C(\mathbf{0}) + C(\mathbf{0}) − 2C(\mathbf{h})\)</span></p><p><span class="math">\(= 2[C(\mathbf{0}) − C(\mathbf{h})]\)</span></p><p>Thus,</p><p><span class="math">\[\gamma(\mathbf{h}) = C(\mathbf{0}) − C(\mathbf{h})\]</span></p><p>So given <span class="math">\(C\)</span>, we are able to determine <span class="math">\(\gamma\)</span>, But in general, we can not always recover <span class="math">\(C\)</span> from <span class="math">\(\gamma\)</span>.</p><p>In the relationship <span class="math">\(\gamma(\mathbf{h}) = C(\mathbf{0}) − C(\mathbf{h})\)</span> we can add a constant on the right side so <span class="math">\(C(\mathbf{h})\)</span> is not identified. If the spatial process is ergodic<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, then <span class="math">\(C(\mathbf{h}) \rightarrow 0\)</span> as <span class="math">\(||\mathbf{h}|| \rightarrow \infty\)</span>, with <span class="math">\(||\mathbf{h}||\)</span> the length of the vector <span class="math">\(\mathbf{h}\)</span>.</p><p>Taking the limit of both sides of <span class="math">\(\gamma(\mathbf{h}) = C(\mathbf{0}) − C(\mathbf{h})\)</span> as <span class="math">\(\mathbf{h} \rightarrow \infty\)</span>, we then have that <span class="math">\(\lim_{||\mathbf{h}||\rightarrow\infty} \gamma(\mathbf{h}) = C(\mathbf{0})\)</span>. Thus, we have: <span class="math">\[C(\mathbf{h}) = C(\mathbf{0}) − \gamma(\mathbf{h}) = \lim_{||\mathbf{h}||\rightarrow\infty} \gamma(\mathbf{h}) − \gamma(\mathbf{h})\]</span> So <span class="math">\(C(\mathbf{h})\)</span> is well defined if <span class="math">\(\lim_{||\mathbf{h}||\rightarrow\infty} \gamma(\mathbf{h})\)</span> <strong>exists</strong>. In this case, <strong>intrinsic stationarity implies weak</strong> (second-order) stationarity. Thus, <strong>weak stationarity implies intrinsic stationarity, but the converse is not true in GENERAL</strong>.</p><h3 id="isotropy"><span class="header-section-number">1.1.7</span> Isotropy</h3><p>If the <strong>semivariogram</strong> <span class="math">\(γ(hdam)\)</span> <strong>depends</strong> upon the separation vector <strong>only through its length</strong> <span class="math">\(hdam\)</span> , then we say that the process is isotropic; if not, we say it is anisotropic. For an isotropic process, <span class="math">\(γ(hdam)\)</span> is a real-valued function of a univariate argument, and can be written as <span class="math">\(γ(||hdam||)\)</span>.</p><p>If the process <strong>is intrinsically stationary and isotropic, it is also called homogeneous</strong>. Isotrophic processes are popular because of their simplicity, interpretability, and because a number of relatively simple parametric forms are available as candidates for <span class="math">\(C\)</span> (and <span class="math">\(γ\)</span>).</p><h2 id="some-common-isotropic-covariograms"><span class="header-section-number">1.2</span> Some common isotropic covariograms</h2><p><img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_011.png" alt="Some common isotropic covariograms" /> <img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_012.png" alt="Some common isotropic covariograms" /></p><p><img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_013.png" /> <img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_014.png" /> <img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_015.png" /></p><h3 id="spherical-semivariogram"><span class="header-section-number">1.2.1</span> Spherical semivariogram</h3><p>/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease Mapping/Selection_016.png</p><ul><li>While <span class="math">\(γ(0) = 0\)</span> by definition, <span class="math">\(γ(0^{+}) = \lim_{t\rightarrow 0} γ(t) = τ^2 \)</span>, this quantity is called the <strong>nugget</strong>.</li><li><span class="math">\(\lim_{t\rightarrow ∞} γ(t) = τ 2 + σ 2\)</span> ; this asymptotic value of the semivariogram is called the sill.</li><li>The sill minus the nugget, <span class="math">\(σ 2\)</span> , is called the partial sill</li><li>The value <span class="math">\(t = 1/\phi\)</span> at which <span class="math">\(γ(t)\)</span> reaches its ultimate level (the sill) is called the range, <span class="math">\(R = 1/\phi\)</span>. The parameter <span class="math">\(\phi\)</span> is the decay parameter.</li></ul><div class="figure"><img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_018.png" alt="Spherical semivariogram" /><p class="caption">Spherical semivariogram</p></div><h3 id="linear-semivariogram"><span class="header-section-number">1.2.2</span> Linear semivariogram</h3><div class="figure"><img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_017.png" /></div><p>Note that <span class="math">\(γ(t) → ∞\)</span> as <span class="math">\(t → ∞\)</span>, and so the semivariogram does <strong>not correspond to weakly stationary</strong> process. The process in intrinsically stationary. The nugget is <span class="math">\(τ 2\)</span> , but the sill and range ar both infinite.</p><h3 id="exponential-semivariogram"><span class="header-section-number">1.2.3</span> Exponential semivariogram</h3><div class="figure"><img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_019.png" /></div><p>The sill is only reached asymptotically, meaning that strictly speaking, the range <span class="math">\(R = 1/φ\)</span> is infinite. To define the notion of an <span class="math">\(effective range\)</span>, for <span class="math">\(t &gt; 0\)</span>,</p><p><span class="math">\(C(t) = lim u→∞ γ(u) − γ(t)\)</span></p><p><span class="math">\(= τ 2 + σ 2 − τ 2 + σ 2 (1 − exp(−φt))\)</span></p><p><span class="math">\(= σ 2 exp(−φt)\)</span></p><p>However, with <span class="math">\(γ(h) = C(0) − C(h)\)</span> we set <span class="math">\(C(0) = τ 2 + σ 2\)</span>.</p><div class="figure"><img src="/home/nguyenkinh/Dropbox/Hasselt/4sm/Disease%20Mapping/Selection_020.png" /></div><p>Then the correlation between two points distance <span class="math">\(t\)</span> apart is <span class="math">\(exp(−φt)\)</span>; note that <span class="math">\(exp(−φt) = 1\)</span> for <span class="math">\(t = 0 +\)</span> and <span class="math">\(exp(−φt) = 0\)</span> for <span class="math">\(t = ∞\)</span>, as expected. We define the <strong>effective range</strong>, <span class="math">\(t 0\)</span> , as the distance <strong>at which this correlation has dropped to only 0.05</strong>. Setting <span class="math">\(exp(−φt 0 )\)</span> equal to this value, we obtain t 0 ≈ 3/φ (since log(0.05) ≈ −3) Finally, the form of C(t) shows why the nugget τ 2 is often viewed as a ‘nonspatial effect variance’ and the partial sill σ 2 as a ‘spatial effect variance’</p><p>Point-Referenced Data Matérn Correlation function 0’2 l/ ‘C(t) : If t &gt; 0 2 2 - 7’ +0 otherwnse o Versatile family 0 Kl, is bessel function of order 1/, with 1/ being a smoothness parameter: 0 1/ = 1/2: exponential o 1/ = 3/2: results in convenient closed form for 0(t), 7(15) 9 1/ -&gt; oo: Gaussian</p><p>Variogram or Covariogram Should we use variograms or covariograms?</p><p>o Cressie (1991) argues in favor of variograms:</p><p>o Variogram is defined in cases when covariogram is not. 0 Classical estimation of variograms is more robust.</p><p>o In practice, modeling often done via covariograms (more intuitive) even though weak stationarity is not usually verified. Rough verification: Look at plot of 0(h) (method of moments estimate) and see if 0(h) appears to go to 0 for large h.</p><p>0 Note: If process is not weakly stationary, try to remove trends to produce weak stationarity in the residual process.</p><p>0 In general it is best to first try to satisfy the stationarity assumption (by removing trends, etc.) before trying to fit more complex (e.g. nonstationary) models.</p><p>Point-Referenced Data Empirical variogram 0 Empirical variogram is a method of moments estimate: 1 N01) 2 h =- Xs- h-Xs- 2 W) NWEI (1+) (1)]</p><p>where N(h) is the number of pairs of samples that are at a distance of h apart from each other.</p><p>0 Usually need to ‘grid up’ the space in intervals 0<h1<h2<...<hK
+
+o The method of moments empirical variogram is sensitive to
+outliers and squared differences may not be well behaved.
+
+Point-Referenced Data
+Empirical variogram
+o Robust estimator due to Hawkins and Cressie (1984):
+1 1 N01) 4
+
+- 1
+2 h = - - X ,- h _ X i a
+Vl ) 457+ .454/|N(h)| N(h) Ell (S + l (8 ll )
+
+o This estimator is approximately unbiased. Another alternative
+(replacing above mean with median):
+N 1 _ l 4
+2701) = E \{median(|X(si + h) - X(s,-)| 2 : h = 1,  N(h))\}
+
+Pomt-Reference Data
+Spherical semivariogram
+O
+8 ‘° 0 o
+1: O o
+g o 0 ° 0 o o 0
+a " o
+E N
+u,
+a
+0 50 100 150 200
+distance
+0
+w
+8
+.5 ‘° 0 ° 0
+g v o O o 0 O o o o
+3 (\l O
+a
+0 50 100 150 200
+distance
+
+Point-Referenced Data
+Variogram model fitting
+0 27(h) , 7(h) are invalid variograms, so spatial predictions
+using them may have negative variances.
+o Ad-hoc solution (produces valid variogram):
+0 Plot empirical variogram and try different parametric forms.
+0 Can visually estimate sill, nugget, range and thus obtain
+corresponding parameters of parametric variogram.
+o More formal (old) approach: Use least squares, weighted least
+squares, generalized least squares etc.
+o Likelihood based: You can pursue full likelihood or Bayesian
+inference (have a model for the data).
+
+Point-Referenced Data
+Variogram model fitting
+After building an experimental variogram, we need to fit a
+theoretical function in order to model the spatial variation. The
+theoretical model to be selected should be that model which best
+fits the data. Some useful models: Gaussian, Exponential,
+Spherical models
+
+Point-Referenced Data - Modeling
+
+Point-Referenced Data
+Interpolation and Spatial Prediction
+0 In exposure assessment, interest is in predicting the exposure
+at a location where we have not recorded an observation, say
+at location so
+0 Interpolation is the process of obtaining a value for a variable
+of interest (Y(so) at an unsampled location, based on the
+surrounding measurements
+0 linear bivariate interpolation
+o inverse distance interpolation
+0 When probabilistic models are used for interpolation, they are
+referred to as methods for spatial prediction.
+0 kriging
+o The spatial predictions have standard errors that quantify the
+uncertainty associated with the interpolated values.
+
+Point-Referenced Data
+Inverse-Distance Interpolation
+o A deterministic approach, not a probabilistic model
+0 A weighted average of neighboring values:
+N -P
+Y<s ) _ 21:1 Y(Si)d0,z’
+0 - ZN d_p
+1:1 01
+o The weight given to each observation is a function of the
+distance (107,- between the observed locations 51- and the
+unobserved location so
+0 The weighting power p is selected to control how fast the
+weights tend to zero as the distance increases
+0 Distance powers between 1 and 3 are typically chosen
+0 Taking p = 2 refers to the inverse-distance-squared
+interpolator
+
+Pomt-Reference Data
+Meuse Data
+. .. zinc
+I . “C
+no.
+. ' - £2~.-°
+. ' ' " g :3 '
+..' ’0 a, '
+I O O
+3"... .'° :.°_ - 113
+.- '. ' . \{- ..... :lzs
+- - - .e.- ,1 - a 112-:
+. '. a : .." '0.-
+. - ‘u 
+u ' O
+l .. .o .. ..
+.oo. 0
+' 519193115] . -°o.'
+£344.9l6025] I o
+602.5,1053]
+o 1053,1839]
+
+Pomt-Reference Data
+Meuse Data
+G.
+00.
+a
+Q
+A a
+E
+\{a
+m
+3
+V. I
+° l
+I
+.g
+N l
+d l'.
+l'.
+1',
+6: l<-I;;:;-4l:_-w._.__l-___
+a
+0 20 40 60 80 100
+d
+
+Point-Reference Data
+Meuse Data
+changing the power: 1, 2 to 3
+
+Pomt-Reference Data
+R code
+library(lattice)
+library(sp)
+data(meuse)
+coordinates(meuse) <- c("x","y")
+spplot(meuse,"zinc",do.log=T)
+bubble(meuse,"zinc",do.log=T)
+data(meuse.grid)
+coordinates(meuse.grid) <- c("x","y")
+meuse.grid<-as(meuse.grid,"SpatialPixelsDataFrame")
+library(gstat)
+idw.out <-idw(zinc ” 1,meuse,meuse.grid, idp=1)
+image(idw.out)
+points(coordinates(meuse), cex=0.75, pch="*")
+
+Point-Referenced Data
+Inverse-Distance Interpolation
+o Advantage:
+0 Simple conceptually
+o Computationally fast
+it Exact interpolator (interpolated surface passes through the
+original observations)
+0 Disadvantage:
+o The mapped surfaces have flat-topped peaks and
+flat-bottomed valleys (concentric contours around data points)
+0 No underlying statistical model
+0 No easy measure of the uncertainty associated with the value
+interpolated
+
+Point-Referenced Data
+Kriging
+o Geostatistical technique for optimal spatial prediction
+0 Named by Matheron (1963) in honor of D.G. Krige, a South
+African mining engineer whose seminal work on empirical
+methods for geostatistical data inspired the general approach
+0 Many different types of kriging, differing by underlying
+assumptions and analytical goals:
+0 Simple kriging: linear prediction (i.e. predictor is linear
+combination of observed data values) assuming a known mean
+0 Ordinary kriging: linear prediction with a constant unknown
+mean
+a Universal kriging: linear prediction with a nonstationary mean
+structure
+a Filtered kriging: kriging with measurement error
+0 Lognormal kriging: optimal spatial prediction based on the
+lognormal distribution
+
+Kriging
+
+o Trans-Gaussian kriging: spatial prediction based on
+transformations of the data
+
+0 Co-kriging: multivariate spatial prediction
+
+0 Indicator kriging: probability mapping under indicator
+functions (binary data)
+
+0 Probability kriging: probability mapping based on both
+indicator functions of the data and the original data
+
+0 Disjunctive kriging: nonlinear prediction based on univariate
+functions of the data
+
+0 Bayesian kriging: incorporates prior information about the
+mean and/or covariance functions into spatial prediction
+
+0 Block kriging: optimal linear prediction of areal data from
+point data
+
+0 ...
+
+Point-Referenced Data
+Ordinary Kriging
+0 Assume that we have data Y = (Y(81),...,Y(sn))/ and want
+to predict the value of the process  at an unobserved
+location, Z(so) (so 6 D)
+0 Assume  is intrinsic stationary (i.e. constant unknown
+mean ,u and known semivariogram 7(h))
+o A linear predictor is takes the form
+TL
+Y(80) = Z Ail/(81)
+i=1
+0 Instead of specifying the weights as an arbitrary function of
+distance (inverse-distance interpolation), determine the
+weights based on the data using the semivariogram
+0 Determine weights based on two criteria: unbiasedness and
+minimum mean-squared prediction error:
+
+Point-Referenced Data
+Ordinary Kriging
+o The best linear prediction isfound using two criteria:
+o Unbiasedness requires E(Y(50)) : ,u : E(Y(50)), which
+requires 2:121 )q :1
+o Minimize the mean-squared prediction error (MSPE) defined as
+El(17(so)- mm
+o This results in solving a constrained optimization problem,
+e.g. using Lagrange multipliers. This gives a system of
+equations, referred to as the kriging equations:
+N
+Z )‘j7(51 - 5j) + m = “1(50 - 51)
+j:1
+N
+D- =1
+1'21
+0 Note that no distributional assumptions are required for the
+
+
+Point-Referenced Data
+Ordinary Kriging
+o The kriging weights are given by:
+-1
+A1 7(81 - 81) ... 7(81 - Sn) 1 7(80 - 81)
+A2 7(82 - 81) ... 7(82 - Sn) 1 7(80 - 82)
+An 7(sn - S1) ... 7(sn - Sn) 1 7(80 - Sn)
+m 1 ... 1 O 1
+0 Note that we need to calculate these kriging weights
+(A1, ...,)\n) for each prediction location so
+0 The matrix P0 depends only on the data locations, and not on
+the prediction locations, so we need only to invert F0 once,
+and then multiply by the associated 70 vector to obtain a
+prediction for any so in D
+
+Point-Referenced Data
+Ordinary Kriging
+o Difficulties:
+
+0 Limitation of constant mean
+
+a Mean surface unknown
+
+0 Variogram unknown
+
+o If we put estimates of both into the kriging equations we fail
+to take into account the uncertainty in these estimates
+
+0 Therefor, we turn to Gaussian processes and likelihood based
+methods, to work with the covariance function
+
+Pomt-Referenced Data
+library(lattice)
+library(sp)
+#Non-linear regression (MSE) estimation of variogram
+vt <- variogram(log(zinc) ” 1,meuse)
+vt.fit <- fit.variogram(vt,vgm(1,"Exp",300,1))
+#[using simple kriging]
+lz.sk<-krige(log(zinc) ” 1 ,meuse,meuse.grid,vt.fit, beta=5.9)
+image(lz.sk)
+title("simple kriging")
+#[using ordinary kriging]
+lz.ok<-krige(log(zinc) ” 1 ,meuse,meuse.grid,vt.fit)
+image(lz.ok)
+title("ordinary kriging")
+#[using universal kriging]
+lz.uk<-krige(log(zinc) ” sqrt(dist) ,meuse,meuse.grid,vt.fit)
+image(lz.uk)
+title("universal kriging")
+
+Pomt-Reference Data
+Meuse Data
+simple kriging ordinary kriging universal kriging
+
+Point-Referenced Data
+Kriging with Gaussian processes
+0 Consider the case where we have no covariates, but only
+responses Y(sZ-) (ordinary kriging with Gaussian process)
+Y =p1+5with E~N(0,E)
+0 Consider the case where we have covariate values 
+(universal kriging with Gaussian process)
+Y=Xﬁ+cwith E~N(0,E)
+o For a spatial covariance structure without nugget effect, we
+specify
+2 = 02151015) with (H(¢))1j = p(<13; dig)
+with p a valid correlation function depending on the distance
+between 51- and sj (covariance functions)
+0 For a model having a nugget effect, we instead set
+E = 02H(¢) + 7'21
+
+Point-Referenced Data
+Kriging with Gaussian processes
+0 We seek the function f(y) that minimizes the mean-squared
+prediction error E[Y(so) - f(y))2|y]
+o This expression equals
+E Imso) - EIY(so)lyl)2 u] + [E(Y(so)ly) - f(y)12
+since the expectation of the cross-product equals 0.
+0 Since the second term is nonnegative, we have
+Eli/(so) - f(y))2lyl 2 E Imso) - EIY(so)lyl)2 u]
+for any function f(y)
+o Equality holds if and only if f(y) = E(Y(so)|y)
+0 Thus, the conditional expectation of Y(so) given the data
+(i.e. posterior mean of Y(so)) is the predictor that minimizes
+the error
+
+Point-Referenced Data
+Kriging with Gaussian processes
+0 We now turn to the estimation of this predictor
+0 Assume (the unrealistic situation) that the parameters
+(0,0, <15, 7'2) are known
+0 Suppose
+Y1 :N<[M1] [911 912 
+Y2 M2 ’ Q21 922
+With 921 = 9%;
+0 Then  is normal with mean and variance
+E(Y1lY2) = #1 + 91292-2106 - M2)
+Var(Y1|Y2) = 911 - 91292-21921
+
+Point-Referenced Data
+Kriging with Gaussian processes
+0 In our setting, Y1 = Y(80) and Y2 = y (all observed data),
+meaning that
+911 = 02 + 7'2;
+912 = 7T?
+922 = E = 02H(¢) ‘l-TZI
+With 7T 2 (029025;!101); - - -702p(¢;d0n))
+o This results in
+E(Y(So)ly) = Xoﬁ + V2401 - Xﬁ)
+Vm"(Y(so)ly) = 0'2 + T2 - V241
+o The weights 'yTE_1 are known as the kriging weights
+0 Note that this solution assumes we have observed the
+covariate value X0 = X(30) at the ‘new’ location so
+
+Point-Referenced Data
+Kriging with Gaussian processes
+0 Next, consider the more realistic scenario where the model
+parameters are unknown, then
+A A ATA_1 A
+Mi) =Xoﬁ+1 E (y -Xﬁ)
+with
+o aT = (621115001), ... 32110000),
+9 f] : 02H($) and
+A A -1 A
+0 ﬂ : (XTZ‘lX) XTZ‘ly the usual weighted least squares
+estimator of 0
+o The result f(y) can be written as ATy where
+A A A -1 A
+A = 2-1? + 2-1X(XT2-1X) (X0 - XTE-la)
+
+Point-Referenced Data
+Kriging with Gaussian processes
+0 Remarks:
+
+0 if the number of predictors p > 0, the above best linear unbiased prediction method is referred to as universal kriging</p><p>o ifp : 1 (and X does not include coordinates) the term kriging with external drift is used</p><p>a ifp : 0 and X0 E 1 this is called ordinary kriging</p><p>o if 0 is assumed a priori known this results corresponds to simple kriging</p><p>Point-Referenced Data Kriging with Gaussian processes</p><p>0 If 330 is unobserved, we can estimate 330 and Y(so) jointly by iterating between the previous formula and a corresponding one for $3, namely 30 = XTA, which arises simply by multiplying both sides of the previous equation by XT and simplifying.</p><p>o This is essentially an EM (expectation-maximization) algorithm, with the calculations of :30 being the E step and the updating of A being the M step</p><p>0 In the classical framework, restricted maximum likelihood (REML) estimates are often plugged in above, and shown to have certain optimal properties</p><p>Pomt-Referenced Data ## Maximum likelihood (ML) or restricted maximum likelihood (REML) parameter estimation for (transformed) Gaussian random fields. scallops.lik.fit &lt;- likfit(scallops.geo,ini.cov.pars=c(5.0,2.0), cov.model=“exponential”,trend=“cte”, fix.nugget=FALSE, nugget=1.0, nospatial=FALSE) summary(scallops.lik.fit) ### Summary of the parameter estimation Estimation method: maximum likelihood Parameters of the mean component (trend): beta 2.364 Parameters of the spatial component: correlation function: exponential (estimated) variance parameter sigmasq (partial sill) = 5.663 (estimated) cor. fct. parameter phi (range parameter) = 18.32</p><p>Pomt-Referenced Data anisotropy parameters:</p><p>(fixed) anisotropy angle = O ( 0 degrees )</p><p>(fixed) anisotropy ratio = 1 Parameter of the error component:</p><p>(estimated) nugget = 0.1655 Transformation parameter:</p><p>(fixed) Box-Cox parameter = 1 (no transformation) Practical Range with cor=0.05 for asymptotic range: 54.88125 Maximised Likelihood:</p><p>log.L n.params AIC BIC Il_287ll “4” “582” “594”</p><p>Point-Referenced Data Bayesian Kriging o The likelihood is given by Y|9 ~ Now. 02H(&lt;1&gt;) + 721) 0 Typically, independent priors are chosen for the parameters 19(9) = p(ﬁ)p(02)p(72)p(¢)</p><p>0 Useful candidates are multivariate normal for 0 and inverse gamma for 02 and 7’2</p><p>0 Specification of 19(0) depends upon choice of p function; a uniform or gamma prior is usually selected</p><p>0 Informativeness: 19(0) can be ‘flat’ (improper), but (15 and at least one of 02 and 7’2 require informative priors</p><p>Point-Referenced Data Bayesian Kriging e We can recast the foregoing in a hierarchical setup by considering conditional likelihood on the spatial random effects 10 2 (10(31), … ,w(sn)) a First stage: Y|6, u) N N(Xp + 10,721) The Y(sZ-) are conditionally independent given the random effects 10 0 Second stage: wl02, &lt;15 ~ N(0. 02H(¢)) 0 Third stage: priors on (0,02,72,05)</p><p>Point-Referenced Data Bayesian Kriging</p><p>o Often we need to predict the response Y at a new site so with associated covariates :30 E $(so)</p><p>o Predictive distribution:</p><p>p(y0ly1X1$0) : Z</p><p>° X1 $01 ls normal Slnce p(y01 X1 $01 ls</p><p>0 Easy Monte Carlo estimate using composition with Gibbs draws of 6.</p><p>Point-Referenced Data Bayesian Kriging</p><p>0 Suppose we want to predict at a set of m new sites, say So :{5011“’150m}</p><p>0 We could individually predict each site ‘independently’ using method of the previous slide</p><p>0 But, joint prediction is also of interest, e.g. bivariate predictive distributions to reveal pairwise dependence, to reflect posterior associations in the realized surface</p><p>0 Form the unobserved vector Y0 = (Y(301), … , Y(50m)), set X0 as covariate matrix at SO and compute</p><p>p(y0ly7X7X0) :</p><p>0 Estimation can be performed again using methods of</p><p>composition sampling</p><p>Pomt-Referenced Data</p><p>scallops.bayes1 &lt;- krige.bayes(scallops.geo, locations=“no”, borders=NULL, model=model.control(trend.d = “cte”, cov.model=“matern”, kappa=O.5, lambda=1), prior=prior.control(beta.prior=“flat”, sigmasq.prior=“reciprocal”,tausq.rel.prior=“uniform”, tausq.rel.discrete=seq(from=0.0,to=1.0,by=0.01)))</p><p>out &lt;- scallops.bayes1$posterior</p><p>out &lt;- out$sample</p><p>beta.qnt &lt;- quantile(out$beta, c(0.50,0.025,0.975))</p><p>phi.qnt &lt;- quantile(out$phi, c(0.50,0.025,0.975))</p><p>sigmasq.qnt &lt;- quantile(out$sigmasq, c(0.50,0.025,0.975))</p><p>tausq.rel.qnt &lt;- quantile(out$tausq.rel, c(0.50,0.025,0.975))</p><h1 id="print-the-estimates"><span class="header-section-number">2</span> print the estimates</h1><p>cbind(beta.qnt, phi.qnt, sigmasq.qnt, tausq.rel.qnt)</p><p>beta.qnt phi.qnt sigmasq.qnt tausq.rel.qnt</p><p>50% 1.860746 44.82210 10.832357 0.04</p><p>2.5% -6.770326 17.92884 4.018998 0.00</p><p>97.5% 6.558691 367.76532 80.541311 0.20</p><p>Point-Referenced Data Spatial GLM 0 Some data sets preclude Gaussian modeling: Y(s) my not even be continuous 0 Example: Y(s) is a binary or count variable 0 precipitation or deposition was measurable or not 0 number of insurance claims by residents of a single family home at s a price is high or low for home at location 5 0 Replace Gaussian likelihood by an appropriate exponential family member 0 Diggle, Tawn and Moyeed (1988)</p><p>Point-Referenced Data Spatial GLM</p><p>0 First stage: Y(sZ-) are conditionally independent given 0 and</p><p>w(s,-). The likelihood f(y(si)|ﬁ,w(si),7) is such that 9(E(Y(Sz’))) = 77(81) = XTCWW + 10(81)</p><p>where 17 is a canonical link function (such as a logit) and 7 is a dispersion parameter</p><p>0 Second stage: model 10(3) as a Gaussian process:</p><p>wl02,¢ ~ N(0,02H(¢)) 0 Third stage: priors and hyperpriors</p><p>CHAPTER 5 Point Pattern Data</p><p>Point-Referenced Data What is a point pattern? 0 For a specified, bounded region D, a set of locations 31-, i = 1, 2, … ,n o The locations are random (the event locations) 0 Only locations, no variables at locations 0 Primary goal: detect patterns, e.g. 0 complete randomness, i.e. no common causative factor between event locations o clustering, i.e. events occurring more frequently in close proximity to one another o regular/systematic pattern 0 Marks, marked patterns: comparison of patterns</p><p>Point-Referenced Data Examples 0 Pattern of trees in a forest 0 Pattern disease cases (possible cases and controls) 0 Breast cancer cases (treatment option) 0 Bovine tuberculosis (also over time)</p><p>Point-Referenced Data Patterns 0 Complete Spatial Randomness (CSR) 0 Event is equally likely to occur at any location within the study area, regardless of the locations of other events it Events follow a uniform distribution across the study areas 0 Events are independent of one another 0 CSR is boundary condition between spatial processes that are more clustered than random and that are more regular than random 0 Clustering o Reflecting areas with increases occurrences of events 0 More cases then under CSR (attraction, contagion) 0 Regular 0 Distances between events is larger than under CSR o Occurs when there is inhibition/competition among points</p><p>Patterns 9 o o .-‘a o .-’ a o o .-‘s a a c I) o I) o a m 0 a d ,, 0° 9 a 9’ ° ° 0 d s e “° 0 a o o o a «2 ° ° «2 ° o s «a O o o O “o a a O a s o &gt; o O a 0 D &gt; a &gt; ,, <r_ v, n V. 0 0° 0
+O O a“ o O
+o a o
+N n o N 0 0 ° 0 N a
+c' a go o' <5 a °
+n o ° 0 a a
+e. o o. ‘2 ° 0. ° .. o
+o o o
+0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0
+u u u
+e. e. a e.
+'- ° 9 '- o e o a '- ° 9 °
+m o s n a a m a no a a m a a a a o a a
+d d D o o d n o
+o a o o 0 °
+«9 ° «9 ° «9 a
+c a s c o a ° 8 o a
+> 0 &gt; ° &gt; o ° V. st 0 at c o e a 9 0° ° C o o N o 0 o N a o N a d d °° u d o o o a a o °° “a e o 9. °° ° a 9. ° 9. ° 0 o o o 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 u u u F IG. 5.1 Six realizations (data sets) based on complete xpzm’zll randomnexx, with 30 event locations distributed indepeur dently (no interactions between events) and nntfonnly (events equally likely at any locations) across the unit square. Chapter 6: Point Pattern Data Disease Mapping 69</p><p>Patterns Clustered Clustered Clustered 0. e. e. .- o .- e no a .- o a3 m D m c’ 0 c’ c’ o 0 &lt;9 &lt;9 &lt;9 d o a ° 9’ a °°°§ 9’ ° 0 &gt; m &gt; o &gt; v o a? a ° 0 V, 0 V, c’ a c’ a a c’ a o a o a e o a a o s a 90 “a on 9 ° % 9 ° ‘° o o o 06’s ° ° 9’ c- c. o 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 u u u Regular Regular Regular 9. e. e. .- .- o a .- a 0 o o e a o o o o «2 o a «2 ° «2 ° C o o u o o o D o a a a g o D o o D o a o o o o o &gt; 0 &gt; D a &gt; ° 0 V. o o a V. 0 ° ° 0 a V. D ° C o o o E, o o o a o o a o o a N. ° ° 0 N. N. o o e o a o a o a o o o 0 ° :1 o ° 0 o 9. ° 0 ° C. o a e. ° ° C o o 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 u u u FIG. 5.2 Three examples each of realizations (data sets) arising from a spatial point process more clustered that come plete spatial randomness (top row), and a spatial point process more regular than complete spatial randomness (bouom row). Each data set contains 30 event locations within the unit square. Chapter 6: Point Pattern Data Disease Mapping 70</p><p>Pomt-Referenced Data Patterns Regular pattern of clusters Cluster of regular patterns 0. O. a 3% 35,; co 0 as oo . . - do - ﬂ 3!!&quot;</p><p>0 Gang? £29068 0 g</p><p>o :9 …..v‘u {w to to 1,“. °‘0 2w 0’ 335’s °°</p><blockquote><p>0 033? &gt; &lt;1- °c§° 0 &lt;1- 0’ 8 0’ o N 0 f g g owq’ N 0’ 32,8 9%) g 0’ o o 0’ 0’ 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 U U FIG. 5.3 Realizations of two hypothetical spatial point processes containing both clustering and reg- ularity at different spatial scales. Chapter 6: Point Pattern Data Disease Mapping 71</p></blockquote><p>Point-Referenced Data Patterns 0 The realizations from 3 CSR model: 0 contains collections of nearby events (apparent clusters) 0 contains locations with large gaps between areas 0 Clustering occurs by chance, making visual assessment of overall pattern difficult 0 Observed patterns do not always fall neatly into one of the three classes 0 The level of spatial scale is important to describe the observed pattern</p><p>Point-Referenced Data F and 0 functions 0 To measure the degree of accomplishment of the CSR, several functions can be computed on the data 0 These measures can be used to test for CSR 0 Distance based methods: a G-function measures the distribution of the distances from an arbitrary event to its nearest event. 0(d) is the nearest neighbor distance, event to event, i.e. 0(d) : Pr(nearest event 3 d) o F-function measures the distribution of all distances from an arbitrary point of the plane to its nearest event. F(d) is the nearest neighbor distance, point to event, i.e. F(d) : Pr(nearest event 3 d)</p><p>Point-Referenced Data F and 0 functions 0 The G-function can be estimated as A d- : d- &lt; d,V’ Z Z Z - Z} n where d,- = minﬁdijﬂj 7E and n is the total number of points. 0 0 is the empirical cdf of the n nearest neighbor distances (nearest neighbor distance for 31, for 32, etc.) 0 Under CSR: 0(d) = 1 - eXp(-)Td2) o Compatibility with CSR of the point pattern can be assessed by plotting the empirical function 0 against the theoretical expectation</p><p>Point-Referenced Data F and 0 functions 0 The F-function can be estimated as A d- : d- &lt; (1 Vi Z Z Z - 7 } m where d,- = minj{dij,Vj 7E are the minimal distance from m random locations sj to the event locations 31-. o F is the empirical cdf arising from the m nearest neighbor distances associated with a randomly selected set of m points in D o The F-function is often called the empty space function, because it measures the average space left between events 0 Under CSR: F(d) = 1 - eXp(-)Td2) 0 Hence, compare the estimated value of F function to its theoretical value.</p><p>Point-Referenced Data F and 0 functions</p><p>0 Edge correction if d &gt; by, distance form .9.- to edge of D</p><p>0 Compare 0 with G o If (2’ &gt; G: clustered pattern 0 If G &lt; 0: more regular pattern</p><p>0 Compare F with F o If E &gt; F: more regular pattern o If F &lt; F: clustered pattern</p><p>Point-Referenced Data F and 0 functions 0 Monte Carlo (simulation-based) methods of inference to assess significance 0 No need to rely on asymptotic properties 0 Procedure: o Calculate the test statistic value based on the data observed 0 Calculate the same statistic for a large number (Nsim) of data sets simulated independently under the null hypothesis 0 A histogram of the statistic values associated with simulated data sets provides description of the null-distribution o The estimated p-value (one-sided test) is E 2 TobslHO) - NSim + 1 With T(1) 2 T(2) 2 2 Ta) 2 T(obs) Z T(l+1)2…2T(Nsim) the ordering of the test statistics 0 For functions, point-wise envelopes under CSR can be obtained in a similar way</p><p>P01 nt- Referenced Data F and 0 functions 0.0 0.2 0.4 0.6 0.81.0 CELLS JAPANESE REDWOOD 1.0 O 0.8 .3. 0° . &gt; 0.6 ’.’d o&quot;</p><p>0.4 .i</p><p>{1 ° 4‘</p><p>0.0</p><p>0.00.20.40.60.81.0 0.00.20.40.60.81.0 X</p><p>Fig. 7.1. Example of three point patterns re-scaled to ﬁt in the unit square. On the left, spatial distribution of the location of cell centres (Ripley, 1977); in the middle, Japanese black pine saplings (Numata, 1961); and on the right, saplings of California redwood trees (Strauss, 1975)</p><p>P01 nt-Referenced Data F and 0 functions 0.0 0.2 0.4 0.6 0.81.0 CELLS JAPANESE REDWOOD</p><p>1.0 0.8 0.6</p><p>B</p><p>0 0.4 0.2 0.0</p><p>0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 theo Fig. 7.3. Envelopes and observed values of the G function for three point patterns</p><p>P01 nt-Referenced Data F and 0 functions 0.0 0.2 0.4 0.6 0.81.0 CELLS JAPANESE REDWOOD</p><p>1.0 0.8 0.6</p><p>3</p><p>0 0.4 0.2 0.0</p><p>0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 theo Fig. 7.4. Envelopes and observed values of the F function for three point patterns</p><p>Point-Referenced Data Spatial Point Processes o A spatial point process describes a stochastic process where each random variable represents the location of an event in space 0 A realization of the process is a collection of locations generated under the spatial point process model 0 A realization represents a data set resulting from a particular model (either observed or simulated)</p><p>Point-Referenced Data Spatial Point Processes 0 Two important underlying concepts for modeling spatial point patterns: 0 Stationarity: when the process is invariant to translation within the space o Isotropic: when the process is invariant to rotation about the origin 0 Stationarity + isotropy: events depend only on the distance separating their locations an not on their orientation to each other 0 These properties offer a notion of replication within the data</p><p>Point-Referenced Data Homogeneous spatial Poisson point process 0 Defined by the following criteria: 1. The number of events occurring within a finite region A is a random variable following a Poisson distribution with mean A|A| for some positive constant A and |A| denoting the area of A 2. Given the total number of events N occurring within an area A, the location of the N events represent an independent random sample of N locations, where each point is equally likely to be chosen as an event 0 Criterion 1: introduces idea of an intensity A, representing the number of events expected per unit area 0 Criterion 2: represents general concept of CSR (events uniformly distributed across the study area)</p><p>Point-Referenced Data Homogeneous spatial Poisson point process 0 Estimation of A: divide total number of events observed by the total area: A N A = - MI 0 Since the intensity of events is constant at all locations, the process is called homogeneous 0 Note that a homogeneous spatial Poisson point process is stationary and isotropic.</p><p>Point-Referenced Data Homogeneous spatial Poisson point process 0 The definition of homogeneous spatial Poisson point process provides a two-stage approach for generating realization from CSR in study area D: 0 Generate the total number of points N(D) from a Poi(A|D|) 0 Place events within D according to a uniform distribution 0 If D rectangular: generate u and v coordinates using uniform random number generators on the intervals corresponding on the width and height of D o If D nonrectangular: embed D within a larger rectable R, and generate event locations within R until N(D) events occur within D</p><p>Point-Referenced Data Heterogeneous spatial Poisson point process 0 The poisson process is homogeneous when the intensity A is constant across the study area 0 CSR may not be an appropriate model for the lack of clustering, since a the population at risk is not necessarily uniformly across space (people tend to live in towns and cities), or 0 environmental factors such as humidity, quality of soil, affect the chance of an event 0 As an alternative to assumption of CSR, consider the hypothesis of constant risk as a model of ‘no clustering’ 0 Under hypothesis of constant risk 0 each person has the same risk of disease during the observation period, regardless of location c we expect more cases in areas with more people at risk</p><p>P01 nt- Referenced Data Heterogeneous spatial Pousson pomt process Clusters of cases in high population areas could Violate CSR but not the constant risk hypothesns 0- o O- o F 2 ° F 2: ° 0 o 3 a 0.. o’Qog‘i o 3 a “is o o . c was: . o 03°56 t0. o°°o ° 0 toast} 0 us. a“; ° o $33 3 o 0 ° °oii° ° °e° ° 0 ° °oii° ° °ea ° &gt; 0 ° 0 o &gt; 0 ° 0 o :- ° 0 o g 00 s ° 0:”‘6: g 00 e N 0 °8 °°o° N 000° 0 o 0 900° 0 03 ° (30°C 0 eg 0. o o 9 o 0. o o ° 0 C) C) 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 U U FIG. 5.4 Example of a process that appears clustered with respect to CSR but not clustered with respect to a hypothesis of constant risk. The box represents an area of high population density. The set of event locations is the same in both plots. In the plot on the left, we observe a higher intensity of events in the high-population area, consistent with a constant risk hypothesis but inconsistent with CSR. In the plot on the right, the cluster occurs outside the area of high population density, reﬂecting an area of increased local risk and a clustered process with respect to both CSR and constant risk. Chapter 6: Point Pattern Data Disease Mapping 87</p><p>Point-Referenced Data Heterogeneous spatial Poisson point process 0 Defined by the following criteria:</p><ol style="list-style-type: decimal"><li><p>The number of events occurring within a finite region A is a random variable following a Poisson distribution with mean fA A(s)ds</p></li><li><p>Given the total number of events N occurring within an area A, the location of the N events represent an independent random sample of N locations, with the probability of sampling a particular point 5 proportional to A(s)</p></li></ol><p>o The constant risk hypothesis requires a spatially varying intensity function A(8)</p><p>0 The events are distributed according to a spatial density function proportional to A(s)</p><p>Point-Referenced Data Heterogeneous spatial Poisson point process</p><p>0 Heterogeneity implies nonstationarity (no longer translation invariant).</p><p>o Heterogeneity in the intensity function A(s) results in an anisotropic process only if A(s) is anisotropic (i.e. not symmetric around the origin).</p><p>0 The intensity function A(s) is a first-order (mean) property, describing the expected density of events in any location of the region.</p><p>0 Under a heterogeneous spatial poisson point process, clusters occur solely due to heterogeneities in the intensity function and individual event locations remain independent of one another.</p><p>Point-Referenced Data Heterogeneous spatial Poisson point process 8 / / 0.1<br />8° 9‘ 0.14 .‘ if?“ ’2 s l®\ .ziliff”:’3‘§\ a \\..;u/’lllll 0“ A a.&quot; ‘5; “\\§;§%lll’””.” &gt; 9 s 0.12 / / o 06 0-08 / ‘wﬁm’l’lo ﬂ - V 4 m {9 0.04 / o o o . o ’tozzgzt’ . / g V 0 5 10 15 20 u FIG. 55 Example intensity function, Ms), for a heterogeneous Poisson point process deﬁned for s = (14,11) and 14,11 E (0,20).</p><p>Hete o e e0 5 s at’al Po’sso 0’ t ocess 8 .. o<em>- I°~ luau-.11..” 8 ..</em>. .3. 8 ..c <em>.<br />-‘~’ .‘Q&gt;’ 91.; 3 .‘.’ 5 .‘° .° .’</em>‘.’ ‘l0 5° 5° .’ °-‘Pb&quot; 08’?- tn “3 05°? 4. o“ o a ‘0. to a ooei .’ -‘o-’o°-‘o’°. .- -<em>–°.°.s.o 0’, - -(;a.n°.o-°$ ‘, - -:°-°..‘° .,’. :o.oj.-8a 0. a:.:..cooo, ;.:..,o D . &gt;0. - -. ‘. o,‘ - » -°’o’. 02s .- - ‘a-o’ ‘.’. o ° .9 .0,o</em>m.‘a, .°,°<em>..</em> L was . . _ -’ ,&gt;‘S__V9.q.u .0 .0“ .‘a . . _ .’ o &gt; .9 .-‘;.o~&quot; D’?i‘9-?“t~-…‘3&amp;s&quot; &gt; 3 °“s.”-°.’°to-°.°..d&gt;”’ &gt; 3 “9-0:” .‘0 <sub>&amp;_ ‘</sub>.,.9…¢~~’ on d a ‘~a.<em>o,.o~&quot; DPIP-“H 0 ._ .- °‘~.‘ B .- <em>.</em>°°’~., D 15:33.1 :°”-o..,“q°’§<em>’.°. 53-33319.&quot; °D’–..,“°’°”;?. “91-321: ’goPp.,”°’,;9’</em>,. m D‘”</em> m $063302: 9‘” i m b.<em>éa.~l.-,If°..,.</em>- ‘5 9 gums. Guam”. Diagnlpcu a… oz..o.:;;-.: :oé.a;;-.: a °:.:.dg€.: ,, 9 .v-U’u… .a‘» . o . o o a o a a a a .9 0 5 10 15 20 0 5 10 15 20 0 5 10 15 20 u u u l“ Db c“ o&quot; ’0’ file” ‘&quot; ’i -’ -‘o7°’co-..°.€’° ‘1: -°o°-’ woo! :9 B?.._°“. . x <em>- .‘<em>.’o..-;, -.,, .‘ x ,- .‘ : -qo 47-. “’3 °:’ V.’ -’ iof 8‘ ° 0 song ’2 :’ foo: :’ -’ -°8 “3°69: ’2 5°” :60?’ -’ -’ °e° 0 ’9 :°p ? :°’- °’v .’ 9°: : :°‘- 3° 0° 1; : 1°°°i°Za-°” o o -’ 5.; :° 2°03. “e,“v°….?’:7” o’“ i 1 ’-° ‘9…°9.~” ° let a. “-9 Waited“ &gt; a . :3 °o a ape &gt; a . .’ ‘. 3‘. was ° 01:” &gt; a . Po ‘. ’90‘5’. ,</em> a ax a ,_ .. N .dl’..,§,..e</em>’_ ,_ p.13. .9 “(Harvey .’:o‘0-. 9°”… .- c o.°i”o. “”‘67’ .- F’v-q? °. ‘D’ugc”“-” .- jsw-b<br />page“? H H - :.<em>,</em>._. H o ‘0 .’.‘.’o’.;~o’ ‘0 .-.-e.“’.-.;<sub>°:,,</sub> “7 589117;; e::-‘.“~-I:_- °:‘V-‘.-~-I:: “..‘-‘.:o-I¢: ° 3…”;<br />no a… o D “.0. D 9 0 D a D 0 5 10 15 20 0 5 10 15 20 0 5 10 15 20 u u u FIG. 5.6 Six simulated realizations of 100 events each from an inhomogeneous Poisson process with intensity shown in Figure5.5. Chapter 6: Point Pattern Data Disease Mapping 91</p><p>Point-Referenced Data Heterogeneous spatial Poisson point process 0 Crude approach: imagine a refined grid over D. Then A(8s) = / A(s)ds av. A(s)|8s| as</p><p>0 So, for grid cell Al, assume A is constant over A; and estimate with N(Al)/|Al|</p><p>0 Two dimensional step function, tile function: like a two-dimensional histogram</p><p>Point-Referenced Data Heterogeneous spatial Poisson point process 0 More sophisticated: a kernel intensity estimate (like a kernel density estimate) 0 This is a non-parametric estimator of the intensity 0 For every 5 E D: A 1 lls - Sill ANS) = 7:16 - /q(ll8ll) h Z, h o H is a bivariate and symmetrical kernel function (usually a bivariate normal pdf) 0 h is the bandwidth (controls smoothness of A) o is a border correction to compensate for the missing observations that occur when 5 is close to the border of the region</p><p>Pomt-Referenced Data Heterogeneous spatial Poisson point process Exa mple kernel smoothing in one dimension, a nd effect of ba ndwidth: Kernel variance : 0.02 Kernel variance : 0.03 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 S S Kernel variance : 0.04 Kernel variance : 0.1 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 0.8 1.0 S 5 FIG. 5.7 Kernel intensity estimates based on the same set of 20 event locations and four different kernel bandwidths [kernel variances reﬂect the square of the bandwidth (standard deviation)].</p><p>Point-Referenced Data Heterogeneous spatial Poisson point process 0 Different kernel functions can be used (overview given by Silverman, 1986) 0 Example: 0 Product kernel based on two univariate Gaussian kernels o The two-dimensional quartic kernel (also known as biweight) _ E 1 _ 2 2 Mu) - ( llull) 7T if u 6 (-1,1), and n(u) : 0 otherwise. 0 A possible approach to select optimal bandwidth involves e.g. the mean squared error of the kernel smoothing estimator</p><p>a a . Heterogeneous spatial Pousson pomt process O O . O O ‘- 9 .’ ‘.’ . e ‘.’ . e - c … e - . c Q : . ‘g’ o ‘e … .- .’ ‘- Q: . .’ ‘. . - . . - <span class="citation">@e</span> e . . do . 8 - c .Q 6 .:®’ ‘.’ ‘o - a , - (D’ : . . e e . e c: . .. . Q a . .. 8 .‘e’ o .- . V . e a . G e 4000 6000 8000 10000 u FIG. 5.8 Early medieval grave site locations. Circled locations denote those grave sites where the person shows evidence of a particular tooth defect (“affected individuals“). The polygon surrounding the points represents the edge of the study area Arrows indicate two locations, each containing two grave sites occurring at such small distances that visual distinction of event locations is difﬁcult at the scale of the ﬁgure. The question of interest: Do the burial sites of affected individuals tend to cluster? Chapter 6: Point Pattern Data Disease Mapping 96</p><p>Heterogeneous spatial Pousson pomt process Estimated intensity function Affected grave locations 0 o o O t Jilin ‘illiiiiillftlftig‘g’l’t’i, 0° ‘ ‘ illi”“’|i”i’.‘i’1t’t‘tli 1 / ,slliitiillllli,’ltu,l” Qt &gt; ‘ a, ,yiiii.,,liu,,,liu,r,i It.“ a .i.ii,’,‘i..’“uil.l’irilltttlv o 3 l as 1e - 03”“Iz‘éz‘éfi’ili‘i’i‘iii’iilllllllhftWW s . « A 4000 6000 8000 10000 U FIG. 5.9 Kernel smoothed density estimate (proportional to the intensity function) for affected loca- tions (grave sites with tooth defect) in an early medieval grave site data set. Bandwidth set to 872.24 in the u direction and 997.45 in the 1; direction based on Scott’s rule [equation (5.3)] for Gaussian kernels (see text). Chapter 6: Point Pattern Data Disease Mapping 97</p><p>Heterogeneous spatial Pousson pomt process Estimated intensity function Nonaffected grave locations 8 . O . 9 . . t K ‘:3’ ,..i’r’1’t“ttii, o ‘’ : . ;52;2’.1’.’l”0.l.l‘lt g « ‘… 37° lW’lllllllll‘ . &gt; « t t t’ ‘l’ ‘’2 ylililfmti‘lili ‘ 8 t’ &quot; . V ,iiim ‘tm‘tii‘i‘i‘i‘iii to l 03’ ’ .‘lill’llt“t.’t’t‘t‘t““t“t‘1‘ii‘ ie . . « 8 #08 . 4000 6000 8000 10000 U FIG. 5.10 Kernel smoothed spatial density estimate (proportional to the intensity function) for non- affected locations (grave sites without tooth defect) in early medieval gave site data set. Bandwidth set to 695.35 in the u direction and 734.82 in the 1; direction based on Scott’s rule [equation (5.3)] for Gaussian kernels (see text). Chapter 6: Point Pattern Data Disease Mapping 98</p><p>Heterogeneous spatial Poisson point process 0 Alternatively, a parametric or semi-parametric form for the intensity may be of interest (e.g. to include covariates) 0 The log-likelihood of a realisation of n independent events with intensity A(s) is TL L(A) = Zlog A(si) - / A(s)ds i=1 A where L, A(s)ds is the expected number of cases in region A o Diggle (2003) suggests a log-linear model to 10gA(8) = Zﬁizilsi j=1 using covariates 23(3) measured at location .9. 0 Standard statistical methods, such as MLE, can be used to estimate the parameters</p><p>Point-Referenced Data Heterogeneous spatial Poisson point process 1400 . . O . e. .0 0 ° 0 o OI  1200 o o . ‘8.- o o 0 o’”;?’.r°“.f:..o . 1000 : “x .. ‘?…..}…’ o- o o 800 {G t :’ f o’q’… ‘. I… ’0’ ‘J‘ o o 5‘; ‘0 600 o 0‘ .0. . 0 .0 o.’..00. y .. 0.. o. 9 o u. 0 ﬁ . ° .0 J .0 .. l‘w :0 ., ..¥.C.o’. {J‘s 200 0 o o .1…“ 9:“‘° …TE.O°:”3: 0 Fig. 7.8. Location of maple trees from the Lansing data set and their estimated parametric intensity using model (72) Log-intensity specified by 2 1039(8)) = 01 + 51331 + 52332 + 53$1+ 54332 + 55331332</p><p>Point-Referenced Data Heterogeneous spatial Poisson point process 0 Generating a realization under the constant risk hypothesis</p><p>can be done by generating from a heterogeneous spatial</p><p>Poisson point process given a known intensity function A(s): o Compute Amax : maxsED A(5) 0 Sample n from P0i(AmaX|D|) 0 Given 11, sample n locations uniformly over D 0 ‘Thin’ by retaining s,- with probability A(s,-)/Amax</p><p>Point-Referenced Data Spatial Point processes 0 In summary: 0 Let N(A) be the number of points in area A 0 Distribution of N(A) is driven by the intensity surface A(s), based on Poisson process 0 N(A) N Po(A(A)) where A(A) = L, A(s)ds 0 Special processes: 0 A(s) : A: homogeneous Poisson process, spatial homogeneity, complete spatial randomness (CSR), A(A) : A|A| o A(s) nonconstant, fixed: nonhomogeneous (heterogeneous) Poisson process 0 A(s) random: Cox process</p><p>Point-Referenced Data K functions</p><p>0 We may be interested in how often events occur within a given distance to other events</p><p>0 Intensity function 2 first-order property of a point process: informs on the mean</p><p>0 Relative position of events 2 second-order property: informs on the interrelationship between events</p><p>0 Second-order properties measure the strength and type of the interactions between events of the point process</p><p>0 They are interesting when studying clustering or competition between events</p><p>Point-Referenced Data K functions 0 The K function considers the number of points within distance d of an arbitrary point 0 Formally, E of e ents ithin d of an arbitrat event A 0 Also called reduced second moment measure 0 To compute this function, Ripley (1976) proposed the estimate TL K(d) = (Mn - 1))_1lAl ZZijllfsi 1 61(81. 51’) S dll i=1 3751’ with wij weights equal to the proportion of the area inside the region A of the circle centered at s,- and radius d(s,-, sj)</p><p>Point-Referenced Data K functions</p><p>0 Under CSR, the value of K(d) is 77112 (the area of a circle of radius (1)</p><p>o For processes more regular, we would expect fewer events within distance d of a randomly chosen event than under CSR</p><p>o For processes more clustered, we would expect more events within a given distance than under CSR</p><p>Point-Referenced Data K functions 0 Under CSR, K(d) = And2/A = 77112 O K(d) =(n))_1 ZZ<wij)_11(ll81- Sill S d)
+i j
+with A
+A = n/|D|
+
+0 tom is an edge correction, the proportion of the circumference
+
+of the circle centered at s,- with radius  - sj|| within D
+0 Compare  with K(d) 2 7rd2
+0 Regularity implies K(d) < 77112
+o Clustering implies K(d) > 77112</p><p>A A 1/2</p><p>0 Alternatively, compare L(d) = with d</p><p>Pomt-Referenced Data Heterogeneous spatial Poisson point process 0.00 0.10 0.20 CELLS JAPANESE REDWOOD 0.04 N 0.02 E I , - - - _ a<br />1A 0.00 -e .‘ -.–,_ , _ b  v&quot;  v ”’ &lt;¥ -0.02 ‘ l  I -o.o4 &quot; 0.00 0.10 0.20 0.00 0.10 0.20 r Fig. 7.9. Envelopes and observed values of Ripley’s K-function for three point patterns</p><p>Point-Referenced Data K functions 0 The K function does not suggest where clusters occur, but rather, at what distances events tend to occur from other events with respect to distances expected under CSR o If event location occur within an irregularly shaped, nonconvex polygon, CSR over a rectangle does assign event locations uniformly throughout the rectangle (including locations outside polygon). In this case the K function might entire/y describe the occurrence of events within the enclosing po/yon. o The above methodology always makes the comparison with CSR, but it can be adapted to compare directly patterns (e.g. affected versus nonaffected sites) 0 Use random labeling hypothesis, random labeling the set of locations of all events observed. 0 This offers one approach for assessing the similarity in the underlying processes</p><p>a a . Heterogeneous spatial Pousson pomt process O C . O O ‘- 9 .’ ‘.’ . e ‘.’ . e - c … o - . c e z . ‘g’ o ‘e … .- .’ ‘- Q: . .’ ‘. . - . . - <span class="citation">@e</span> e . . do . 8 -’ .Q 6 .:®‘’ . ‘’ o - a , - (D ‘: . . o e . e c: . .. . Q a . .. 8 .’ e ’ o .- . V . e a . Q o 4000 6000 8000 10000 u FIG. 5.8 Early medieval grave site locations. Circled locations denote those grave sites where the person shows evidence of a particular tooth defect (“affected individuals“). The polygon surrounding the points represents the edge of the study area Arrows indicate two locations, each containing two grave sites occurring at such small distances that visual distinction of event locations is difﬁcult at the scale of the ﬁgure. The question of interest: Do the burial sites of affected individuals tend to cluster? Chapter 6: Point Pattern Data Disease Mapping 109</p><p>a a . Heterogeneous spatial Pousson pomt process L plot for all grave sites, rectangle 8 co 5 8 if e 5:11:7’ ‘- c - 2537M 975peioentiies O - Observed s ‘1’ 0 1000 2000 3000 4000 5000 Distance L plot for affected grave sites, rectangle 5» j E e V ’f 0 1000 2000 3000 4000 5000 Distance L plot for non-affected grave sites, rectangle 8 ‘. ‘° 1 ’f c c , ‘1’ 0 1000 2000 3000 4000 5000 Distance Chapter 6: Point Pattern Data Disease Mapping 110</p><p>a a . Heterogeneous spatial Pousson pomt process L plot for all grave sites, polygon é _ 2 5 and 97 5 percentiles u, -onseivon J g g” “……n-n haw-e.” ,3 c e T 0 1000 2000 3000 4000 5000 Distance L plot for affected grave sites, polygon g u: 8 ,,nsr“)In“:“”‘–«“T”T’l“WV-”‘““)-”“” 11&quot; S N’ ’w W g a V U<br />&lt;11 0 HM ‘”Rh/Jag , g i<br />0 1000 2000 3000 4000 5000 Distance L plot for nonaftected grave sites, polygon E . u: 1‘&quot; m N &lt;,<em>V&gt;‘&gt; A</em>ne.–A.ee<sub>-</sub>.ee.-.__<em>&gt;(</em>. ’ﬁ ‘3 ~:‘_… &lt;11 ’ 1 ’ HT““mu”<strong>’</strong><em>&gt;,</em>…_-~e<br />c git . 0 1000 2000 3000 4000 5000 Distance Chapter 6: Point Pattern Data Disease Mapping 111</p><p>P01 nt-Referenced Data Heterogeneous spatial Pousson pomt process 0 o °° — min,max ~—- 2.5th,97.5th percentiles<br />8 —- median U1” co ,1 o ,4 “3 I”t .v“”‘“‘s- I“”’s a’ -:‘E o 1‘ ‘.z~~-&quot; “’”Nv ‘o’ “d “w’ -‘t) o In , 1’<br />o  ,’”<em>.</em>.ws.».~…e.-<em>,.</em>-ﬂv<em>,.,l .. » —-~-v-r–..</em>,N,_ c…-,,.<em>,..-v</em>____‘~ ’ 8<br />’ Vi ‘‘. l i 1‘, o’ x, .1 _ A. o x 1‘ 1 st s ‘« &lt;‘l. I’m”: ‘ X o \ o<br />“,3<br />0 1000 2000 3000 4000 5000 Distance FIG. 5.14 Z plot for the early medieval grave site data shown in Figure 5.8, compared to a random labeling hypothesis (see text). The solid line illustrates L(h) + h for the case data (comparable to the middle plot of Figure 5.13). The dashed, dotted, and dash-dotted “envelopes” represent the minimum, maximum, 2.5th percentile, 97.5th percentile, and median values, respectively, based on 499 random samples of 30 sites each from the set of 143 sites. Chapter 6: Point Pattern Data Disease Mapping 112</p><p>Point-Referenced Data First and Second-order properties 0 First order (intensity function) and second order (K function) analysis provide different but complementary insight into the analysis of spatial point patterns 0 Second-order analysis gives insight into global aspects o Are there general patterns of clustering and/or regularity with respect to CSR or another pattern 0 First-order analysis provide local insights 0 Where do the patterns appear to differ?</p><p>Point-Referenced Data Other Point Processes</p><p>o Poisson cluster processes: defines spatial point processes wherein each event belongs to a particular (latent) cluster</p><p>0 Contagion/inhibition processes: focuses on direct modeling of interevent interactions wherein the occurrence of an event raises or lowers the probability of observing subsequent events nearby (e.g. for modeling of infectious diseases or territory of an animal)</p><p>0 Cox processes: considers the intensity function as random quantity drawn from some probability distribution (e.g. heterogeneity changes from year to year)</p><p>0 Distinguishing between possible underlying processes based on observed data can be problematic. With replicate realizations, one may be able to distinguish the patterns.</p><div class="footnotes"><hr /><ol><li id="fn1"><p>In mathematics, the term ergodic is used to describe a dynamical system which, broadly speaking, <strong>has the same behavior averaged over time as averaged over the space of all the system’s states</strong> (phase space). In physics the term is used to imply that a system satisfies the ergodic hypothesis of thermodynamics. In statistics, the term describes a <strong>random process</strong> for <strong>which the time average of one sequence of events is the same as the ensemble average</strong>. In other words, for a Markov chain, as one increases the steps, there exists a positive probability measure at step n that is <strong>independent</strong> of probability distribution at <strong>initial step 0</strong> (Feller, 1971, p. 271).<a href="#fnref1">↩</a></p></li></ol></div>
