@@ -30,6 +30,14 @@
 
 <p>Mọi cá nhân, tổ chức có quan tâm vui lòng cùng tham gia viết bài và đóng góp theo thể thức github, mọi người cùng đóng góp. </p>
 
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
 <p><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a><br>This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
       </section>
       <footer>
