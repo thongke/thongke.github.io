@@ -2,4 +2,4 @@
 
 <p>Với mục đích xây dựng một tài liệu chuyên ngành về thống kê, đầy đủ, cả lý thuyết thực dụng nhằm phục vụ sự phát triển của thống kê nói riêng và nghiên cứu khoa học nói chung.</p>
 
-<p>Mọi cá nhân, tổ chức có quan tâm vui lòng cùng tham gia viết bài và đóng góp theo thể thức github, mọi người cùng đóng góp. </p>
+<p>Mọi cá nhân, tổ chức có quan tâm vui lòng cùng tham gia viết bài và đóng góp theo  Jekyll,  hay cụ thể đặt tệp tin định dạng markdown vào folder `_post`. </p>
