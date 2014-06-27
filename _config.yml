@@ -1,25 +1,25 @@
 # Dependencies
-markdown:         redcarpet
+markdown:         kramdown
 pygments:         true
 
 # Permalinks
 permalink:        pretty
 
 # Setup
-title:            Poole
-tagline:          The Jekyll Butler
-url:              http://getpoole.com
+title:            Thống kê
+tagline:          Thư viện thống kê
+url:              http://thongke.github.io
 paginate:         1
 baseurl:          /
 author:
-  name:           Mark Otto
-  url:            https://twitter.com/mdo
-  email:          markdotto@gmail.com
+  name:           YTCC
+  url:            http://stats.ytecongcong.com/
+  email:          admin@ytecongcong.com
 
 # Custom vars
 version:          1.0.0
 github:
-  repo:           https://github.com/poole/poole
+  repo:           https://github.com/thongke/thongke.github.io
 
 pages_list:       
   About: '/about'
