@@ -7,6 +7,8 @@ tagline: Học liệu thống kê.
 
 # Chào mừng đến với thongke.github.io
 
+Trang [Github](https://github.com/thongke/thongke.github.io)
+
 Với mục đích xây dựng một tài liệu chuyên ngành về thống kê, đầy đủ, cả lý thuyết thực dụng nhằm phục vụ sự phát triển của thống kê nói riêng và nghiên cứu khoa học nói chung.
 
 Mọi cá nhân, tổ chức có quan tâm vui lòng cùng tham gia viết bài và đóng góp theo thể thức github.
