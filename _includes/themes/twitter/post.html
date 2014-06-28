@@ -36,5 +36,10 @@
     {% include JB/tags_list %}
     </ul>
   {% endunless %}  
+    <h4>Posted in</h4>
+      <ul>
+      {% assign categories_list = site.categories %}  
+      {% include JB/categories_list %}
+    </ul>
   </div>
 </div>

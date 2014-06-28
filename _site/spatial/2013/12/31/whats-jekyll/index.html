@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>What and why spatial statistics?</title>
+    
+    <meta name="author" content="Kinh Nguyen">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Thống kê Việt</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Tổng hợp</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Chuyên mục</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Trang</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Thẻ</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>What and why spatial statistics? <small>Làm thống kê</small></h1>
+</div>
+
+<div class="row">
+  <div class="span10">
+    <h2 id="spatial-epidemiology">Spatial Epidemiology</h2>
+<p>Concerns the analysis of the spatial/geographical distribution of the incidence or prevalence of disease. Also called:</p>
+
+<ul>
+  <li>geographical epidemiology</li>
+  <li>environmental epidemiology</li>
+  <li>medical geography</li>
+  <li>small area health study</li>
+  <li>spatial biostatistics</li>
+</ul>
+
+<blockquote>
+  <p>How to analyse geographical data when we have geographical information available?</p>
+</blockquote>
+
+<h3 id="non-spatial-analysis">Non-Spatial Analysis</h3>
+<ul>
+  <li>Using conventional statistical methods</li>
+  <li>The results are independent of the spatial arrangement of the geographical entities </li>
+  <li>Observations or entities are assumed to be independent and identically distributed, or in some occasions temporal dependence are also explored.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>asas</th>
+      <th>sasa</th>
+      <th>asas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>adasdsaasas</td>
+      <td>sasa</td>
+      <td>asasadasdasdsads</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Variable 1</th>
+      <th>Variable 2</th>
+      <th>Variable n</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Entity 1</td>
+      <td>attribute~1~</td>
+      <td>attribute~12~</td>
+      <td>attribute~1n~</td>
+    </tr>
+    <tr>
+      <td>Entity 2</td>
+      <td>attribute~21~</td>
+      <td>attribute~22~</td>
+      <td>attribute~2n~</td>
+    </tr>
+    <tr>
+      <td>Entity m</td>
+      <td>attribute~m1~</td>
+      <td>attribute~m2~</td>
+      <td>attribute~mn~</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="spatial-analysis">Spatial analysis</h3>
+<ul>
+  <li>When geographical information available, data are called geo-referenced</li>
+  <li>Use of spatial statistical methods</li>
+  <li>The results depend on the spatial arrangement of the geographical entities </li>
+  <li>It can also include temporal dependence</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Geographical</th>
+      <th> </th>
+      <th>attribute</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>X</td>
+      <td>Y</td>
+      <td>Variable 1</td>
+      <td>Variable 2</td>
+      <td>Variable n</td>
+    </tr>
+    <tr>
+      <td>Entity 1</td>
+      <td>X~1~</td>
+      <td>Y1</td>
+      <td>attribute~1~</td>
+      <td>attribute~12~</td>
+      <td>attribute~1n~</td>
+    </tr>
+    <tr>
+      <td>Entity 2</td>
+      <td>X~2~</td>
+      <td>Yg</td>
+      <td>attribute~21~</td>
+      <td>attribute~22~</td>
+      <td>attribute~2n~</td>
+    </tr>
+    <tr>
+      <td>Entity m</td>
+      <td>X~m~</td>
+      <td>Ym</td>
+      <td>attribute~m1~</td>
+      <td>attribute~m2~</td>
+      <td>attribute~mn~</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="areas-of-applications">Areas of Applications</h3>
+<p>Earliest example of spatial epidemiology: Dr. John Snow’s study of spatial distribution of cholera victims. Epidemic around the Broad Street pump in London (1854)</p>
+
+<p>Other example: In an epidemiological investigation, we might wish to analyze lung, breast,
+colorectal, and cervical cancer rates by county and year in a particular state, with smoking, mammography, and other important screening and staging information also available at some level.</p>
+
+<p><img src="a1.png" alt="Source: Limburg cancer registry data (Belgium)" /></p>
+
+<p>Researchers in diverse areas such as climatology, ecology, environmental health, and real estate marketing are increasingly faced with the task of analyzing data that are highly multivariate, with many important predictors and response variables, geographically referenced, and often presented as maps and temporally correlated, as in longitudinal or other time series structures.</p>
+
+<h3 id="statistical-inference">Statistical Inference</h3>
+<p>Public health professionals who collect such data are charged not only with surveillance, but also statistical inference tasks, such as <strong>modeling</strong> of trends and correlation structures, <strong>estimation</strong> of underlying model parameters, <strong>hypothesis testing</strong> (or comparison of competing models), <strong>prediction</strong> of observations at unobserved times or locations. All naturally accomplished through hierarchical modeling (which can be implemented via Markov chain Monte Carlo (MCMC) methods or other frequentist approaches)</p>
+
+<h3 id="spatial-statistics-books">Spatial Statistics Books</h3>
+<p>Pioneer Book: Paelinck and Klaassen (1979): which focused the attention of regional scientists on the need for specialized econometric methods to deal with estimation and specification problems caused by spatial data.</p>
+
+<p>Books in the field:  Cressie (1990, 1993): the legendary “bible” of spatial statistics, but rather high mathematical level and lacks modern hierarchical modeling/computing. Wackernagel (1998): terse; only geostatistics. Chiles and Delfiner (1999): only geostatistics. Stein (1999a): theoretical treatise on kriging.</p>
+
+<p>More descriptive presentations: Bailey and Gatrell (1996) focuses on description of pattern, tests of hypotheses, and interpolation, the authors continually stress the role of visualization in understanding spatial phenomena. Fotheringham and Rogerson (1994): deal with the integration of GIS and spatial analysis. Haining (1990):include data description, map interpolation, exploratory and explanatory analyses.</p>
+
+<p>More recent books: Banerjee, S., Carlin, B.P. and Gelfand, A.E. (2004) Hierarchical modeling of analysis for spatial data, CRC Press. Waller, LA, and Gotway, CA. (2004) Applied spatial statistics for public health, Wiley &amp; Sons. Bivand, R.S., Pebesma, E.J., Gomez-Rubio, V. (2008) Applied Spatial Data Analysis with R, Springer. Lawson, A. (2009) Bayesian disease mapping. Hierarchical modeling in spatial epidemiology, Chapman &amp; Hall. Gelfand, A.E., Diggle, P., Fuentes, M. and Guttorp, P. (2011) Handbook of Spatial Statistics, CRC press. Cressie, N. and Wikle, C. (2011) Statistics for spatio-temporal data.</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+      
+        <li class="prev"><a href="/lessons/2011/12/29/jekyll-introduction" title="Jekyll Introduction">&larr; Previous</a></li>
+      
+        <li><a href="/archive.html">Archive</a></li>
+      
+        <li class="next"><a href="/lessons/2014/01/01/example-content" title="Example content">Next &rarr;</a></li>
+      
+      </ul>
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'qaytcngcngonline'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>31 December 2013</span></div>
+
+    
+    <h4>Posted in</h4>
+      <ul>
+        
+      
+
+
+  
+     
+    	<li><a href="/categories.html#lessons-ref">
+    		lessons <span>2</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#spatial-ref">
+    		spatial <span>1</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Kinh Nguyen 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>Thống kê Việt</title>
- <link href="http://username.github.io/" rel="self"/>
- <link href="http://username.github.io"/>
- <updated>2014-06-28T22:33:24+02:00</updated>
- <id>http://username.github.io</id>
+ <link href="http://thongke.github.io/" rel="self"/>
+ <link href="http://thongke.github.io"/>
+ <updated>2014-06-28T23:18:18+02:00</updated>
+ <id>http://thongke.github.io</id>
  <author>
    <name>Kinh Nguyen</name>
    <email>admin@ytecongcong.com</email>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Introducing Thongke.github.io</title>
-   <link href="http://username.github.io/2014/01/02/introducing-poole"/>
+   <link href="http://thongke.github.io/2014/01/02/introducing-poole"/>
    <updated>2014-01-02T00:00:00+01:00</updated>
-   <id>http://username.github.io/2014/01/02/introducing-poole</id>
+   <id>http://thongke.github.io/2014/01/02/introducing-poole</id>
    <content type="html">&lt;p&gt;In construction….&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://creativecommons.org/licenses/by-nc-sa/4.0/&quot;&gt;&lt;img alt=&quot;Creative Commons License&quot; src=&quot;https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png&quot; /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-sa/4.0/&quot;&gt;Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License&lt;/a&gt;.&lt;/p&gt;
@@ -25,9 +25,9 @@
  
  <entry>
    <title>Example content</title>
-   <link href="http://username.github.io/lessons/2014/01/01/example-content"/>
+   <link href="http://thongke.github.io/lessons/2014/01/01/example-content"/>
    <updated>2014-01-01T00:00:00+01:00</updated>
-   <id>http://username.github.io/lessons/2014/01/01/example-content</id>
+   <id>http://thongke.github.io/lessons/2014/01/01/example-content</id>
    <content type="html">&lt;p&gt;Howdy! This is an example blog post that shows several types of HTML content supported in this theme.&lt;/p&gt;
 
 &lt;p&gt;Cum sociis natoque penatibus et magnis &lt;a href=&quot;#&quot;&gt;dis parturient montes&lt;/a&gt;, nascetur ridiculus mus. &lt;em&gt;Aenean eu leo quam.&lt;/em&gt; Pellentesque ornare sem lacinia &lt;img src=&quot;ấa&quot; alt=&quot;quam&quot; /&gt; venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.&lt;/p&gt;
@@ -168,25 +168,164 @@
  </entry>
  
  <entry>
-   <title>What's Jekyll?</title>
-   <link href="http://username.github.io/2013/12/31/whats-jekyll"/>
+   <title>What and why spatial statistics?</title>
+   <link href="http://thongke.github.io/spatial/2013/12/31/whats-jekyll"/>
    <updated>2013-12-31T00:00:00+01:00</updated>
-   <id>http://username.github.io/2013/12/31/whats-jekyll</id>
-   <content type="html">&lt;p&gt;&lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; is a static site generator, an open-source tool for creating simple yet powerful websites of all shapes and sizes. From &lt;a href=&quot;https://github.com/jekyll/jekyll/blob/master/README.markdown&quot;&gt;the project’s readme&lt;/a&gt;:&lt;/p&gt;
+   <id>http://thongke.github.io/spatial/2013/12/31/whats-jekyll</id>
+   <content type="html">&lt;h2 id=&quot;spatial-epidemiology&quot;&gt;Spatial Epidemiology&lt;/h2&gt;
+&lt;p&gt;Concerns the analysis of the spatial/geographical distribution of the incidence or prevalence of disease. Also called:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;geographical epidemiology&lt;/li&gt;
+  &lt;li&gt;environmental epidemiology&lt;/li&gt;
+  &lt;li&gt;medical geography&lt;/li&gt;
+  &lt;li&gt;small area health study&lt;/li&gt;
+  &lt;li&gt;spatial biostatistics&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Jekyll is a simple, blog aware, static site generator. It takes a template directory […] and spits out a complete, static website suitable for serving with Apache or your favorite web server. This is also the engine behind GitHub Pages, which you can use to host your project’s page or blog right here from GitHub.&lt;/p&gt;
+  &lt;p&gt;How to analyse geographical data when we have geographical information available?&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;It’s an immensely useful tool. Find out more by &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;visiting the project on GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;non-spatial-analysis&quot;&gt;Non-Spatial Analysis&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Using conventional statistical methods&lt;/li&gt;
+  &lt;li&gt;The results are independent of the spatial arrangement of the geographical entities &lt;/li&gt;
+  &lt;li&gt;Observations or entities are assumed to be independent and identically distributed, or in some occasions temporal dependence are also explored.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;asas&lt;/th&gt;
+      &lt;th&gt;sasa&lt;/th&gt;
+      &lt;th&gt;asas&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;adasdsaasas&lt;/td&gt;
+      &lt;td&gt;sasa&lt;/td&gt;
+      &lt;td&gt;asasadasdasdsads&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;Variable 1&lt;/th&gt;
+      &lt;th&gt;Variable 2&lt;/th&gt;
+      &lt;th&gt;Variable n&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Entity 1&lt;/td&gt;
+      &lt;td&gt;attribute~1~&lt;/td&gt;
+      &lt;td&gt;attribute~12~&lt;/td&gt;
+      &lt;td&gt;attribute~1n~&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Entity 2&lt;/td&gt;
+      &lt;td&gt;attribute~21~&lt;/td&gt;
+      &lt;td&gt;attribute~22~&lt;/td&gt;
+      &lt;td&gt;attribute~2n~&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Entity m&lt;/td&gt;
+      &lt;td&gt;attribute~m1~&lt;/td&gt;
+      &lt;td&gt;attribute~m2~&lt;/td&gt;
+      &lt;td&gt;attribute~mn~&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;spatial-analysis&quot;&gt;Spatial analysis&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;When geographical information available, data are called geo-referenced&lt;/li&gt;
+  &lt;li&gt;Use of spatial statistical methods&lt;/li&gt;
+  &lt;li&gt;The results depend on the spatial arrangement of the geographical entities &lt;/li&gt;
+  &lt;li&gt;It can also include temporal dependence&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;Geographical&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;attribute&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;X&lt;/td&gt;
+      &lt;td&gt;Y&lt;/td&gt;
+      &lt;td&gt;Variable 1&lt;/td&gt;
+      &lt;td&gt;Variable 2&lt;/td&gt;
+      &lt;td&gt;Variable n&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Entity 1&lt;/td&gt;
+      &lt;td&gt;X~1~&lt;/td&gt;
+      &lt;td&gt;Y1&lt;/td&gt;
+      &lt;td&gt;attribute~1~&lt;/td&gt;
+      &lt;td&gt;attribute~12~&lt;/td&gt;
+      &lt;td&gt;attribute~1n~&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Entity 2&lt;/td&gt;
+      &lt;td&gt;X~2~&lt;/td&gt;
+      &lt;td&gt;Yg&lt;/td&gt;
+      &lt;td&gt;attribute~21~&lt;/td&gt;
+      &lt;td&gt;attribute~22~&lt;/td&gt;
+      &lt;td&gt;attribute~2n~&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Entity m&lt;/td&gt;
+      &lt;td&gt;X~m~&lt;/td&gt;
+      &lt;td&gt;Ym&lt;/td&gt;
+      &lt;td&gt;attribute~m1~&lt;/td&gt;
+      &lt;td&gt;attribute~m2~&lt;/td&gt;
+      &lt;td&gt;attribute~mn~&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;areas-of-applications&quot;&gt;Areas of Applications&lt;/h3&gt;
+&lt;p&gt;Earliest example of spatial epidemiology: Dr. John Snow’s study of spatial distribution of cholera victims. Epidemic around the Broad Street pump in London (1854)&lt;/p&gt;
+
+&lt;p&gt;Other example: In an epidemiological investigation, we might wish to analyze lung, breast,
+colorectal, and cervical cancer rates by county and year in a particular state, with smoking, mammography, and other important screening and staging information also available at some level.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;a1.png&quot; alt=&quot;Source: Limburg cancer registry data (Belgium)&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Researchers in diverse areas such as climatology, ecology, environmental health, and real estate marketing are increasingly faced with the task of analyzing data that are highly multivariate, with many important predictors and response variables, geographically referenced, and often presented as maps and temporally correlated, as in longitudinal or other time series structures.&lt;/p&gt;
+
+&lt;h3 id=&quot;statistical-inference&quot;&gt;Statistical Inference&lt;/h3&gt;
+&lt;p&gt;Public health professionals who collect such data are charged not only with surveillance, but also statistical inference tasks, such as &lt;strong&gt;modeling&lt;/strong&gt; of trends and correlation structures, &lt;strong&gt;estimation&lt;/strong&gt; of underlying model parameters, &lt;strong&gt;hypothesis testing&lt;/strong&gt; (or comparison of competing models), &lt;strong&gt;prediction&lt;/strong&gt; of observations at unobserved times or locations. All naturally accomplished through hierarchical modeling (which can be implemented via Markov chain Monte Carlo (MCMC) methods or other frequentist approaches)&lt;/p&gt;
+
+&lt;h3 id=&quot;spatial-statistics-books&quot;&gt;Spatial Statistics Books&lt;/h3&gt;
+&lt;p&gt;Pioneer Book: Paelinck and Klaassen (1979): which focused the attention of regional scientists on the need for specialized econometric methods to deal with estimation and specification problems caused by spatial data.&lt;/p&gt;
+
+&lt;p&gt;Books in the field:  Cressie (1990, 1993): the legendary “bible” of spatial statistics, but rather high mathematical level and lacks modern hierarchical modeling/computing. Wackernagel (1998): terse; only geostatistics. Chiles and Delfiner (1999): only geostatistics. Stein (1999a): theoretical treatise on kriging.&lt;/p&gt;
+
+&lt;p&gt;More descriptive presentations: Bailey and Gatrell (1996) focuses on description of pattern, tests of hypotheses, and interpolation, the authors continually stress the role of visualization in understanding spatial phenomena. Fotheringham and Rogerson (1994): deal with the integration of GIS and spatial analysis. Haining (1990):include data description, map interpolation, exploratory and explanatory analyses.&lt;/p&gt;
+
+&lt;p&gt;More recent books: Banerjee, S., Carlin, B.P. and Gelfand, A.E. (2004) Hierarchical modeling of analysis for spatial data, CRC Press. Waller, LA, and Gotway, CA. (2004) Applied spatial statistics for public health, Wiley &amp;amp; Sons. Bivand, R.S., Pebesma, E.J., Gomez-Rubio, V. (2008) Applied Spatial Data Analysis with R, Springer. Lawson, A. (2009) Bayesian disease mapping. Hierarchical modeling in spatial epidemiology, Chapman &amp;amp; Hall. Gelfand, A.E., Diggle, P., Fuentes, M. and Guttorp, P. (2011) Handbook of Spatial Statistics, CRC press. Cressie, N. and Wikle, C. (2011) Statistics for spatio-temporal data.&lt;/p&gt;
 </content>
  </entry>
  
  <entry>
    <title>Jekyll Introduction</title>
-   <link href="http://username.github.io/lessons/2011/12/29/jekyll-introduction"/>
+   <link href="http://thongke.github.io/lessons/2011/12/29/jekyll-introduction"/>
    <updated>2011-12-29T00:00:00+01:00</updated>
-   <id>http://username.github.io/lessons/2011/12/29/jekyll-introduction</id>
+   <id>http://thongke.github.io/lessons/2011/12/29/jekyll-introduction</id>
    <content type="html">
 &lt;p&gt;This Jekyll introduction will outline specifically  what Jekyll is and why you would want to use it.
 Directly following the intro we&amp;#8217;ll learn exactly &lt;em&gt;how&lt;/em&gt; Jekyll does what it does.&lt;/p&gt;

@@ -3,14 +3,14 @@
 permalink: /:categories/:year/:month/:day/:title 
 
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-pygments: true
+highlighter: pygments
 markdown: kramdown
 
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Thống kê Việt
-tagline: Phát triển học liệu thống kê
+title : "Thống kê Việt"
+tagline: "Phát triển học liệu thống kê"
 author :
   name : Kinh Nguyen
   email : admin@ytecongcong.com
@@ -84,15 +84,15 @@ JB :
     provider : disqus
     disqus :
       short_name : qaytcngcngonline
-    livefyre :
-      site_id : 
-    intensedebate :
-      account : 
-    facebook : ytecongcong
-      appid : 123
-      num_posts: 5
-      width: 580
-      colorscheme: light
+    # livefyre :
+      # site_id : 
+    # intensedebate : 
+      # account : 
+    # facebook: http://facebook.com/ytecongcong
+      # appid: 367607376664005
+      # num_posts: 5
+      # width: 580
+      # colorscheme: light
    
   # Settings for analytics helper
   # Set 'provider' to the analytics provider you want to use.
