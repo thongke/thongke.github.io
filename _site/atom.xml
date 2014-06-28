@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>Jekyll Bootstrap</title>
+ <title>Thống kê Việt</title>
  <link href="http://username.github.io/" rel="self"/>
  <link href="http://username.github.io"/>
- <updated>2014-06-28T19:39:12+02:00</updated>
+ <updated>2014-06-28T21:46:25+02:00</updated>
  <id>http://username.github.io</id>
  <author>
-   <name>Name Lastname</name>
-   <email>blah@email.test</email>
+   <name>Kinh Nguyen</name>
+   <email>admin@ytecongcong.com</email>
  </author>
 
  
@@ -25,14 +25,12 @@
  
  <entry>
    <title>Example content</title>
-   <link href="http://username.github.io/2014/01/01/example-content"/>
+   <link href="http://username.github.io/lessons/2014/01/01/example-content"/>
    <updated>2014-01-01T00:00:00+01:00</updated>
-   <id>http://username.github.io/2014/01/01/example-content</id>
-   <content type="html">&lt;div class=&quot;message&quot;&gt;
-  Howdy! This is an example blog post that shows several types of HTML content supported in this theme.
-&lt;/div&gt;
+   <id>http://username.github.io/lessons/2014/01/01/example-content</id>
+   <content type="html">&lt;p&gt;Howdy! This is an example blog post that shows several types of HTML content supported in this theme.&lt;/p&gt;
 
-&lt;p&gt;Cum sociis natoque penatibus et magnis &lt;a href=&quot;#&quot;&gt;dis parturient montes&lt;/a&gt;, nascetur ridiculus mus. &lt;em&gt;Aenean eu leo quam.&lt;/em&gt; Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.&lt;/p&gt;
+&lt;p&gt;Cum sociis natoque penatibus et magnis &lt;a href=&quot;#&quot;&gt;dis parturient montes&lt;/a&gt;, nascetur ridiculus mus. &lt;em&gt;Aenean eu leo quam.&lt;/em&gt; Pellentesque ornare sem lacinia &lt;img src=&quot;ấa&quot; alt=&quot;quam&quot; /&gt; venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.&lt;/p&gt;

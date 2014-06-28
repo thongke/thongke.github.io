@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Archive
+title: Tổng hợp
 ---
 
-## Blog Posts
+## Các bài viết
 
 {% for post in site.posts %}
   * {{ post.date | date_to_string }} &raquo; [ {{ post.title }} ]({{ post.url }})

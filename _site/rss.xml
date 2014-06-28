@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
-        <title>Jekyll Bootstrap</title>
-        <description>Jekyll Bootstrap - Name Lastname</description>
+        <title>Thống kê Việt</title>
+        <description>Thống kê Việt - Kinh Nguyen</description>
         <link>http://username.github.io</link>
         <link>http://username.github.io</link>
-        <lastBuildDate>2014-06-28T19:39:12+02:00</lastBuildDate>
-        <pubDate>2014-06-28T19:39:12+02:00</pubDate>
+        <lastBuildDate>2014-06-28T21:46:25+02:00</lastBuildDate>
+        <pubDate>2014-06-28T21:46:25+02:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -23,11 +23,9 @@
 
         <item>
                 <title>Example content</title>
-                <description>&lt;div class=&quot;message&quot;&gt;
-  Howdy! This is an example blog post that shows several types of HTML content supported in this theme.
-&lt;/div&gt;
+                <description>&lt;p&gt;Howdy! This is an example blog post that shows several types of HTML content supported in this theme.&lt;/p&gt;
 
-&lt;p&gt;Cum sociis natoque penatibus et magnis &lt;a href=&quot;#&quot;&gt;dis parturient montes&lt;/a&gt;, nascetur ridiculus mus. &lt;em&gt;Aenean eu leo quam.&lt;/em&gt; Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.&lt;/p&gt;
+&lt;p&gt;Cum sociis natoque penatibus et magnis &lt;a href=&quot;#&quot;&gt;dis parturient montes&lt;/a&gt;, nascetur ridiculus mus. &lt;em&gt;Aenean eu leo quam.&lt;/em&gt; Pellentesque ornare sem lacinia &lt;img src=&quot;ấa&quot; alt=&quot;quam&quot; /&gt; venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.&lt;/p&gt;
@@ -162,8 +160,8 @@
 
 &lt;p&gt;Want to see something else added? &lt;a href=&quot;https://github.com/poole/poole/issues/new&quot;&gt;Open an issue.&lt;/a&gt;&lt;/p&gt;
 </description>
-                <link>http://username.github.io/2014/01/01/example-content</link>
-                <guid>http://username.github.io/2014/01/01/example-content</guid>
+                <link>http://username.github.io/lessons/2014/01/01/example-content</link>
+                <guid>http://username.github.io/lessons/2014/01/01/example-content</guid>
                 <pubDate>2014-01-01T00:00:00+01:00</pubDate>
         </item>
 

@@ -1,46 +1,20 @@
 ---
 layout: page
-title: Hello World!
-tagline: Supporting tagline
+title: đang xây dựng!
+tagline: Học liệu thống kê.
 ---
 {% include JB/setup %}
 
-Read [Jekyll Quick Start](http://jekyllbootstrap.com/usage/jekyll-quick-start.html)
+# Chào mừng đến với thongke.github.io
 
-Complete usage and documentation available at: [Jekyll Bootstrap](http://jekyllbootstrap.com)
+Với mục đích xây dựng một tài liệu chuyên ngành về thống kê, đầy đủ, cả lý thuyết thực dụng nhằm phục vụ sự phát triển của thống kê nói riêng và nghiên cứu khoa học nói chung.
 
-## Update Author Attributes
+Mọi cá nhân, tổ chức có quan tâm vui lòng cùng tham gia viết bài và đóng góp theo thể thức github.
 
-In `_config.yml` remember to specify your own data:
-    
-    title : My Blog =)
-    
-    author :
-      name : Name Lastname
-      email : blah@email.test
-      github : username
-      twitter : username
+![My helpful screenshot]({{ site.url }}/assets/images/lie.jpg)
 
-The theme should reference these variables whenever needed.
-    
-## Sample Posts
+you can [get the PDF]({{ site.url }}/assets/docs/test.pdf) directly and [get the R code]({{ site.url }}/assets/code/test.R) **directly**.
 
-This blog contains sample posts which help stage pages and blog data.
-When you don't need the samples anymore just delete the `_posts/core-samples` folder.
 
-    $ rm -rf _posts/core-samples
-
-Here's a sample "posts list".
-
-<ul class="posts">
-  {% for post in site.posts %}
-    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
-  {% endfor %}
-</ul>
-
-## To-Do
-
-This theme is still unfinished. If you'd like to be added as a contributor, [please fork](http://github.com/plusjade/jekyll-bootstrap)!
-We need to clean up the themes, make theme usage guides with theme-specific markup examples.
-
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">Thống kê Việt</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.ytecongcong.com" property="cc:attributionName" rel="cc:attributionURL">YTCC Online</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="stats.ytecongcong.com" rel="dct:source">stats.ytecongcong.com</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="admin@ytecongcong.com" rel="cc:morePermissions">admin@ytecongcong.com</a>.
 

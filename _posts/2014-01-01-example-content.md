@@ -1,14 +1,15 @@
 ---
-layout: post
 title: Example content
+layout: post
+category : lessons
+tagline: "ấda đá adas"
+tags : [thử, tiếng,vịêt,coi,có,ổn,không]
 ---
 
 
-<div class="message">
-  Howdy! This is an example blog post that shows several types of HTML content supported in this theme.
-</div>
+Howdy! This is an example blog post that shows several types of HTML content supported in this theme.
 
-Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. *Aenean eu leo quam.* Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.
+Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. *Aenean eu leo quam.* Pellentesque ornare sem lacinia ![quam](ấa) venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.
 
 > Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.
 
